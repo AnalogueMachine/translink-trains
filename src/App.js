@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import "./App.css";
-import Navbar from "react-bootstrap/Navbar";
-import { Nav, Form, Button, Card, Container, Row, Col } from "react-bootstrap";
-// import { xml2json } from "xml-js";
+import Header from './components/Header';
+import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
+//import { xml2json } from "xml-js";
 
 class App extends Component {
   constructor(props) {
@@ -127,20 +126,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home">Translink Trains</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link href="https://github.com/AnalogueMachine">
-                GitHub
-              </Nav.Link>
-              <Nav.Link href="http://twitter.com/AnalogueMachine">
-                Twitter
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Navbar>
+        <Header />
         <Container>
           <Row>
             <Col md={{ span: 8, offset: 2 }}>
