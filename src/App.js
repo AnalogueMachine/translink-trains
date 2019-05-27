@@ -54,7 +54,7 @@ class App extends Component {
     this.setState({ selectedStation: event.target.value });
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     // Handled by proxy locally
     // fetch(
@@ -90,7 +90,7 @@ class App extends Component {
     const services = this.state.stationInformation.StationBoard.Service;
     let serviceElements;
 
-    if (services.length) {
+    if (services) {
       serviceElements = services.map((service, index) => {
         return (
           <Card key={index}>
