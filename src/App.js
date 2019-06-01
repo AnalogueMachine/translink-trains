@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Header from './components/Header';
-import { Form, Button, Card, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import ServiceCard from "./components/ServiceCard";
 //import { xml2json } from "xml-js";
 
 class App extends Component {
@@ -93,27 +94,7 @@ class App extends Component {
     if (services) {
       serviceElements = services.map((service, index) => {
         return (
-          <Card key={index}>
-            <Card.Body>
-              <Card.Title>
-                Destination: {service.Destination1.$.name}
-              </Card.Title>
-              <Card.Text>
-                Origin: {service.Origin1.$.name}
-                <br />
-                Due: {service.ArriveTime.$.time}
-                <br />
-                Departing: {service.DepartTime.$.time}
-                <br />
-                Status: {service.ServiceStatus.$.Status}
-                <br />
-                Delay: {service.Delay.$.Minutes} minutes
-                <br />
-                Platform: {service.Platform.$.Number}
-                <br />
-              </Card.Text>
-            </Card.Body>
-          </Card>
+          <ServiceCard key={index} service={service} />
         );
       });
     } else {
@@ -155,17 +136,6 @@ class App extends Component {
               {this.state.stationInformation.StationBoard && (
                 <div>{this.renderServices()}</div>
               )}
-            </Col>
-          </Row>
-          <Row>
-            <Col md={{ span: 8, offset: 2 }}>
-              <Card>
-                <Row>
-                  <Col>Time</Col>
-                  <Col>Destination</Col>
-                  <Col>Something</Col>
-                </Row>
-              </Card>
             </Col>
           </Row>
         </Container>
