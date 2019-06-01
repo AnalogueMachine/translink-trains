@@ -75,5 +75,44 @@ describe('ServiceCard', () => {
     it('should contain a Body element', () => {
       expect(body.props.children[1].type).toBe(Card.Text);
     });
+
+    describe('Card text', () => {
+      let cardText;
+
+      beforeEach(() => {
+        cardText = body.props.children[1];
+      });
+
+      it('should contain the train origin', () => {
+        expect(cardText.props.children[0]).toBe('Origin: ');
+        expect(cardText.props.children[1]).toBe(mockService.Origin1.$.name);
+      });
+
+      it('should contain the due time for the train', () => {
+        expect(cardText.props.children[3]).toBe('Due: ');
+        expect(cardText.props.children[4]).toBe(mockService.ArriveTime.$.time);
+      });
+
+      it('should contain the departure time for the train', () => {
+        expect(cardText.props.children[6]).toBe('Departing: ');
+        expect(cardText.props.children[7]).toBe(mockService.DepartTime.$.time);
+      });
+
+      it('should contain the train status', () => {
+        expect(cardText.props.children[9]).toBe('Status: ');
+        expect(cardText.props.children[10]).toBe(mockService.ServiceStatus.$.Status);
+      });
+
+      it('should contain the train delay time in minutes', () => {
+        expect(cardText.props.children[12]).toBe('Delay: ');
+        expect(cardText.props.children[13]).toBe(mockService.Delay.$.Minutes);
+        expect(cardText.props.children[14]).toBe(' minutes');
+      });
+
+      it('should contain the train platform number', () => {
+        expect(cardText.props.children[16]).toBe('Platform: ');
+        expect(cardText.props.children[17]).toBe(mockService.Platform.$.Number);
+      });
+    });
   });
 });
