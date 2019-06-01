@@ -52,6 +52,15 @@ describe('ServiceCard', () => {
     expect(wrapper.type()).toBe(Card);
   });
 
+  it('should have appropriate styling', () => {
+    const cardStyle = {
+      margin: '10px 0 10px 0',
+      boxShadow: '2px 4px 4px #888888'
+    };
+
+    expect(wrapper.props().style).toEqual(cardStyle);
+  });
+
   describe('Card body', () => {
     let body;
 

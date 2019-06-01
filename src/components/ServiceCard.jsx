@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 
 const ServiceCard = (props) => {
   return (
-    <Card style={{ margin: "10px 0 10px 0"}}>
+    <Card style={{ margin: "10px 0 10px 0", boxShadow: "2px 4px 4px #888888"}}>
       <Card.Body>
         <Card.Title>
           Destination: {props.service.Destination1.$.name}
