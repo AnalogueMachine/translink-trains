@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import ServiceCard from '../ServiceCard';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 import React from 'react';
 
 const mockService = {
@@ -41,11 +41,13 @@ const mockService = {
   }
 };
 
+const mockOnClick = jest.fn();
+
 describe('ServiceCard', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<ServiceCard service={mockService} />);
+    wrapper = shallow(<ServiceCard service={mockService} onClick={mockOnClick} />);
   });
 
   it('should be a React-Bootstrap Card element', () => {
@@ -121,6 +123,29 @@ describe('ServiceCard', () => {
       it('should contain the train platform number', () => {
         expect(cardText.props.children[16]).toBe('Platform: ');
         expect(cardText.props.children[17]).toBe(mockService.Platform.$.Number);
+      });
+    });
+
+    describe('Button', () => {
+      let button;
+
+      beforeEach(() => {
+        button = wrapper.find(Button);
+      });
+
+      it('should contain a button', () => {
+        expect(button.type()).toBe(Button);
+      });
+
+      it('should have the right text', () => {
+        expect(button.props().children).toBe('View Stops');
+      });
+
+      it('should have an onClick function passed from props', () => {
+        button.simulate('click');
+        
+        expect(button.props().onClick).toBe(mockOnClick);
+        expect(mockOnClick).toBeCalled();
       });
     });
   });
