@@ -1,7 +1,7 @@
 export const getStations = async () => {
   let stationsArray;
     // Handled by proxy locally - may need to uncomment in production
-    await fetch("https://apis.opendatani.gov.uk/translink/")
+    await fetch("https://cors.io/?https://apis.opendatani.gov.uk/translink/")
       .then(results => {
         return results.json();
       })
