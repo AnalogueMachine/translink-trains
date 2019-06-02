@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from 'react-bootstrap';
+import { Card, Button } from 'react-bootstrap';
 
 const ServiceCard = (props) => {
   return (
@@ -22,6 +22,7 @@ const ServiceCard = (props) => {
           Platform: {props.service.Platform.$.Number}
           <br />
         </Card.Text>
+        <Button onClick={props.onClick} value={props.index}>View Stops</Button>
       </Card.Body>
     </Card>
   )
