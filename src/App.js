@@ -3,6 +3,7 @@ import Header from './components/Header';
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import ServiceCard from "./components/ServiceCard";
 import ServiceModal from "./components/ServiceModal";
+import { getStations } from "./services/stationServices";
 //import { xml2json } from "xml-js";
 
 class App extends Component {
@@ -23,7 +24,8 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    let stations = await this.getStations();
+    // let stations = await this.getStations();
+    let stations = getStations(); // Try this with GH Pages
     stations = await stations.map((station, index) => {
       return (
         <option key={index} value={station.code} onClick={this.handleClick}>
@@ -37,7 +39,7 @@ class App extends Component {
     });
   }
 
-  getStations = async () => {
+  getStations = async () => { // Only use this locally
     let stationsArray;
     // Handled by proxy locally - may need to uncomment in production
     // await fetch("https://cors.io/?https://apis.opendatani.gov.uk/translink/")
