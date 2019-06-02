@@ -1,3 +1,5 @@
+const xmljs = require('xml-js');
+
 export const getStations = async () => {
   let stationsArray;
     // Handled by proxy locally - may need to uncomment in production
@@ -29,7 +31,7 @@ export const getStationInformation = async () => {
   ).then(xml => {
       // console.log(xml);
       stationInformation = JSON.parse(
-        xml2json(xml, {
+        xmljs.xml2json(xml, {
           compact: true,
           textKey: "_",
           attributesKey: "$",
