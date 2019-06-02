@@ -25,7 +25,7 @@ class App extends Component {
 
   async componentDidMount() {
     // let stations = await this.getStations();
-    let stations = getStations(); // Try this with GH Pages
+    let stations = await getStations(); // Try this with GH Pages
     stations = await stations.map((station, index) => {
       return (
         <option key={index} value={station.code} onClick={this.handleClick}>
