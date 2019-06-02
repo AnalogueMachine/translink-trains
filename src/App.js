@@ -3,7 +3,7 @@ import Header from './components/Header';
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import ServiceCard from "./components/ServiceCard";
 import ServiceModal from "./components/ServiceModal";
-import { getStations } from "./services/stationServices";
+import { getStations, getStationInformation } from "./services/stationServices";
 //import { xml2json } from "xml-js";
 
 class App extends Component {
@@ -62,7 +62,7 @@ class App extends Component {
     this.setState({ selectedStation: event.target.value });
   }
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault();
     // Handled by proxy locally
     // fetch(
@@ -89,9 +89,10 @@ class App extends Component {
     //     this.setState({ stationInformation: json });
     //   }
     // );
-    fetch(`/station/${this.state.selectedStation}`)
-      .then(response => { return response.json() })
-      .then(stationInformation => { this.setState({ stationInformation: stationInformation })});
+    // fetch(`/station/${this.state.selectedStation}`)
+    //   .then(response => { return response.json() })
+    //   .then(stationInformation => { this.setState({ stationInformation: stationInformation })});
+    this.setState({ stationInformation: getStationInformation() });
   }
 
   viewStops(event) {
