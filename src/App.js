@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Header from './components/Header';
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import ServiceCard from "./components/ServiceCard";
+import ServiceModal from "./components/ServiceModal";
 //import { xml2json } from "xml-js";
 
 class App extends Component {
@@ -10,11 +11,15 @@ class App extends Component {
 
     this.state = {
       selectedStation: "None selected",
-      stationInformation: ""
+      stationInformation: "",
+      selectedService: null,
+      showStationModal: false
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.viewStops = this.viewStops.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   async componentDidMount() {
@@ -87,6 +92,16 @@ class App extends Component {
       .then(stationInformation => { this.setState({ stationInformation: stationInformation })});
   }
 
+  viewStops(event) {
+    console.log(this.state.stationInformation.StationBoard.Service[event.target.value]);
+    this.setState({ selectedService: this.state.stationInformation.StationBoard.Service[event.target.value] });
+    this.setState({ showStationModal: true });
+  }
+
+  handleModalClose() {
+    this.setState({ showStationModal: false });
+  }
+
   renderServices() {
     const services = this.state.stationInformation.StationBoard.Service;
     let serviceElements;
@@ -94,7 +109,7 @@ class App extends Component {
     if (services) {
       serviceElements = services.map((service, index) => {
         return (
-          <ServiceCard key={index} service={service} />
+          <ServiceCard key={index} service={service} onClick={this.viewStops} index={index} />
         );
       });
     } else {
@@ -108,6 +123,9 @@ class App extends Component {
     return (
       <div>
         <Header />
+        {this.state.selectedService &&
+          <ServiceModal service={this.state.selectedService} show={this.state.showStationModal} onHide={this.handleModalClose} />
+        }
         <Container>
           <Row>
             <Col md={{ span: 8, offset: 2 }}>
