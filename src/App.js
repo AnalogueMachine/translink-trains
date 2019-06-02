@@ -92,7 +92,7 @@ class App extends Component {
     // fetch(`/station/${this.state.selectedStation}`)
     //   .then(response => { return response.json() })
     //   .then(stationInformation => { this.setState({ stationInformation: stationInformation })});
-    this.setState({ stationInformation: getStationInformation() });
+    this.setState({ stationInformation: getStationInformation(this.state.selectedStation) });
   }
 
   viewStops(event) {

@@ -14,11 +14,11 @@ export const getStations = async () => {
     return stationsArray;
 }
 
-export const getStationInformation = async () => {
+export const getStationInformation = async (stationCode) => {
   let stationInformation;
    // Handled by proxy locally
   await fetch(
-    `https://cors.io/?https://apis.opendatani.gov.uk/translink/${this.state.selectedStation}.xml`,
+    `https://cors.io/?https://apis.opendatani.gov.uk/translink/${stationCode}.xml`,
     {
       method: "GET",
       headers: {
