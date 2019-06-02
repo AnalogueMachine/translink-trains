@@ -4,7 +4,6 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import ServiceCard from "./components/ServiceCard";
 import ServiceModal from "./components/ServiceModal";
 import { getStations, getStationInformation } from "./services/stationServices";
-//import { xml2json } from "xml-js";
 
 class App extends Component {
   constructor(props) {
@@ -17,86 +16,34 @@ class App extends Component {
       showStationModal: false
     };
 
-    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.viewStops = this.viewStops.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
   }
 
   async componentDidMount() {
-    // let stations = await this.getStations();
     let stations = await getStations(); // Try this with GH Pages
     stations = await stations.map((station, index) => {
       return (
-        <option key={index} value={station.code} onClick={this.handleClick}>
+        <option key={index} value={station.code}>
           {station.name}
         </option>
       );
     });
 
-    this.setState({
-      stations: stations
-    });
+    this.setState({ stations: stations });
   }
 
-  getStations = async () => { // Only use this locally
-    let stationsArray;
-    // Handled by proxy locally - may need to uncomment in production
-    // await fetch("https://cors.io/?https://apis.opendatani.gov.uk/translink/")
-    //   .then(results => {
-    //     return results.json();
-    //   })
-    //   .then(data => {
-    //     stationsArray = data.stations;
-    //   });
-
-    // Calling proxy
-    await fetch("/stations")
-      .then(results => { return results.json(); })
-      .then(data => { stationsArray = data; });
-    
-    return stationsArray;
-  };
-
-  handleClick(event) {
-    this.setState({ selectedStation: event.target.value });
-  }
-
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
-    // Handled by proxy locally
-    // fetch(
-    //   `https://cors.io/?https://apis.opendatani.gov.uk/translink/${this.state.selectedStation}.xml`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       Accept: "application/xml"
-    //     }
-    //   }
-    // ).then(response => {
-    //     return response.text();
-    //   }
-    // ).then(xml => {
-    //     // console.log(xml);
-    //     const json = JSON.parse(
-    //       xml2json(xml, {
-    //         compact: true,
-    //         textKey: "_",
-    //         attributesKey: "$",
-    //         commentKey: "value"
-    //       })
-    //     );
-    //     this.setState({ stationInformation: json });
-    //   }
-    // );
-    // fetch(`/station/${this.state.selectedStation}`)
-    //   .then(response => { return response.json() })
-    //   .then(stationInformation => { this.setState({ stationInformation: stationInformation })});
-    this.setState({ stationInformation: getStationInformation(this.state.selectedStation) });
+
+    const info = await getStationInformation(this.state.selectedStation);
+
+    this.setState({ stationInformation: info });
   }
 
   viewStops(event) {
-    console.log(this.state.stationInformation.StationBoard.Service[event.target.value]);
     this.setState({ selectedService: this.state.stationInformation.StationBoard.Service[event.target.value] });
     this.setState({ showStationModal: true });
   }
@@ -122,6 +69,10 @@ class App extends Component {
     return serviceElements;
   }
 
+  handleChange(event) {
+    this.setState({ selectedStation: event.target.value });
+  }
+
   render() {
     return (
       <div>
@@ -135,7 +86,7 @@ class App extends Component {
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group style={{ textAlign: "center" }}>
                   <Form.Label>Choose your station...</Form.Label>
-                  <Form.Control as="select">
+                  <Form.Control as="select" onChange={this.handleChange}>
                     <option>Please select...</option>
                     {this.state.stations}
                   </Form.Control>
