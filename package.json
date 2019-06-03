@@ -1,8 +1,8 @@
 {
-  "name": "react-bootstrap-test",
+  "name": "translink-trains",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://analoguemachine.github.io/react-bootstrap-test",
+  "homepage": "https://analoguemachine.github.io/translink-trains",
   "dependencies": {
     "bootstrap": "^4.3.1",
     "react": "^16.8.6",
