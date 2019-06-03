@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.js": "/react-bootstrap-test/static/js/main.b40d176b.chunk.js",
-    "main.js.map": "/react-bootstrap-test/static/js/main.b40d176b.chunk.js.map",
-    "runtime~main.js": "/react-bootstrap-test/static/js/runtime~main.fb90e7f7.js",
-    "runtime~main.js.map": "/react-bootstrap-test/static/js/runtime~main.fb90e7f7.js.map",
-    "static/css/2.266e55a5.chunk.css": "/react-bootstrap-test/static/css/2.266e55a5.chunk.css",
-    "static/js/2.f94603fc.chunk.js": "/react-bootstrap-test/static/js/2.f94603fc.chunk.js",
-    "static/js/2.f94603fc.chunk.js.map": "/react-bootstrap-test/static/js/2.f94603fc.chunk.js.map",
-    "index.html": "/react-bootstrap-test/index.html",
-    "precache-manifest.c88ac1e0a60ea5684154508cd9f4b16c.js": "/react-bootstrap-test/precache-manifest.c88ac1e0a60ea5684154508cd9f4b16c.js",
-    "service-worker.js": "/react-bootstrap-test/service-worker.js",
-    "static/css/2.266e55a5.chunk.css.map": "/react-bootstrap-test/static/css/2.266e55a5.chunk.css.map"
+    "main.js": "/translink-trains/static/js/main.79b7efc8.chunk.js",
+    "main.js.map": "/translink-trains/static/js/main.79b7efc8.chunk.js.map",
+    "runtime~main.js": "/translink-trains/static/js/runtime~main.72501314.js",
+    "runtime~main.js.map": "/translink-trains/static/js/runtime~main.72501314.js.map",
+    "static/css/2.266e55a5.chunk.css": "/translink-trains/static/css/2.266e55a5.chunk.css",
+    "static/js/2.f94603fc.chunk.js": "/translink-trains/static/js/2.f94603fc.chunk.js",
+    "static/js/2.f94603fc.chunk.js.map": "/translink-trains/static/js/2.f94603fc.chunk.js.map",
+    "index.html": "/translink-trains/index.html",
+    "precache-manifest.de93c07f9fcd8d92329997cc013da6f4.js": "/translink-trains/precache-manifest.de93c07f9fcd8d92329997cc013da6f4.js",
+    "service-worker.js": "/translink-trains/service-worker.js",
+    "static/css/2.266e55a5.chunk.css.map": "/translink-trains/static/css/2.266e55a5.chunk.css.map"
   }
 }
