@@ -17,7 +17,7 @@ export const getStations = async () => {
     //   .then(data => { stationsArray = data; });
 
     // Heroku proxy version
-    await fetch("http://translink-proxy.herokuapp.com/stations")
+    await fetch("https://translink-proxy.herokuapp.com/stations")
       .then(results => { return results.json(); })
       .then(data => { stationsArray = data; });
 
@@ -58,7 +58,7 @@ export const getStationInformation = async (stationCode) => {
   //   .then(stationInfo => { stationInformation = stationInfo });
 
   // Heroku proxy version
-   await fetch(`http://translink-proxy.herokuapp.com/station/${stationCode}`)
+   await fetch(`https://translink-proxy.herokuapp.com/station/${stationCode}`)
     .then(response => { return response.json() })
     .then(stationInfo => { stationInformation = stationInfo });
 
