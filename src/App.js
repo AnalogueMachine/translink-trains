@@ -86,8 +86,8 @@ class App extends Component {
               <Form onSubmit={this.handleSubmit}>
                 <Form.Group style={{ textAlign: "center" }}>
                   <Form.Label>Choose your station...</Form.Label>
-                  <Form.Control as="select" onChange={this.handleChange}>
-                    <option>Please select...</option>
+                  <Form.Control as="select" onChange={this.handleChange} required>
+                    <option disabled selected hidden>Please select...</option>
                     {this.state.stations}
                   </Form.Control>
                 </Form.Group>
