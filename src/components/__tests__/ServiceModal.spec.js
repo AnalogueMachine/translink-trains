@@ -6,10 +6,14 @@ import React from 'react';
 const mockSelectedService = {
   Destination1: {
     $: {
-      name: "Carrickfergus"
+      name: "Carrickfergus",
+      etarr: "1425"
     }
   },
   Dest1CallingPoints: {
+    $: {
+      NumCallingPoints: "2"
+    },
     CallingPoint: [
       {
         $: {
@@ -24,7 +28,7 @@ const mockSelectedService = {
         }
       }
     ]
-  }
+  },
 };
 
 const mockOnHide = jest.fn();
@@ -94,6 +98,84 @@ describe('Service Modal', () => {
       expect(body.props.children[1].props.children[0]).toBe("1420");
       expect(body.props.children[1].props.children[1]).toBe(" - ");
       expect(body.props.children[1].props.children[2]).toBe("Belfast");
+    });
+
+    it('should contain the destination stop in the list of stops', () => {
+      expect(body.props.children[2].type).toBe('div');
+      expect(body.props.children[2].props.children[0]).toBe("1425");
+      expect(body.props.children[2].props.children[1]).toBe(" - ");
+      expect(body.props.children[2].props.children[2]).toBe("Carrickfergus");
+    });
+
+    it('should correctly handle a service with only one calling point', () => {
+      const mockServiceOneCallingPoint = {
+        Destination1: {
+          $: {
+            name: "Carrickfergus",
+            etarr: "1425"
+          }
+        },
+        Dest1CallingPoints: {
+          $: {
+            NumCallingPoints: "1"
+          },
+          CallingPoint: {
+            $: {
+              Name: "Antrim",
+              etarr: "1413"
+            }
+          }
+        },
+      };
+
+      const mockPropsOneCallingPoint = {
+        service: mockServiceOneCallingPoint,
+        show: true,
+        onHide: mockOnHide
+      }
+
+      wrapper = shallow(<ServiceModal {...mockPropsOneCallingPoint} />);
+      body = wrapper.props().children[1];
+
+      expect(body.props.children[0].type).toBe('div');
+      expect(body.props.children[0].props.children[0]).toBe("1413");
+      expect(body.props.children[0].props.children[1]).toBe(" - ");
+      expect(body.props.children[0].props.children[2]).toBe("Antrim");
+
+      expect(body.props.children[1].type).toBe('div');
+      expect(body.props.children[1].props.children[0]).toBe("1425");
+      expect(body.props.children[1].props.children[1]).toBe(" - ");
+      expect(body.props.children[1].props.children[2]).toBe("Carrickfergus");
+    });
+
+    it('should correctly handle a service with no calling points', () => {
+      const mockServiceNoCallingPoints = {
+        Destination1: {
+          $: {
+            name: "Carrickfergus",
+            etarr: "1425"
+          }
+        },
+        Dest1CallingPoints: {
+          $: {
+            NumCallingPoints: "0"
+          }
+        },
+      };
+
+      const mockPropsNoCallingPoints = {
+        service: mockServiceNoCallingPoints,
+        show: true,
+        onHide: mockOnHide
+      }
+
+      wrapper = shallow(<ServiceModal {...mockPropsNoCallingPoints} />);
+      body = wrapper.props().children[1];
+
+      expect(body.props.children[0].type).toBe('div');
+      expect(body.props.children[0].props.children[0]).toBe("1425");
+      expect(body.props.children[0].props.children[1]).toBe(" - ");
+      expect(body.props.children[0].props.children[2]).toBe("Carrickfergus");
     });
   })
 });
