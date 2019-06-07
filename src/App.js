@@ -4,6 +4,7 @@ import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import ServiceCard from "./components/ServiceCard";
 import ServiceModal from "./components/ServiceModal";
 import { getStations, getStationInformation } from "./services/stationServices";
+import LoadingModal from "./components/LoadingModal";
 
 class App extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class App extends Component {
       selectedStation: "None selected",
       stationInformation: "",
       selectedService: null,
-      showStationModal: false
+      showStationModal: false,
+      showLoadingModal: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -32,15 +34,21 @@ class App extends Component {
       );
     });
 
-    this.setState({ stations: stations });
+    this.setState({
+      stations: stations,
+      showLoadingModal: false
+    });
   }
 
   async handleSubmit(event) {
     event.preventDefault();
-
+    this.setState({ showLoadingModal: true });
     const info = await getStationInformation(this.state.selectedStation);
 
-    this.setState({ stationInformation: info });
+    this.setState({
+      stationInformation: info,
+      showLoadingModal: false
+    });
   }
 
   viewStops(event) {
@@ -80,6 +88,7 @@ class App extends Component {
         {this.state.selectedService &&
           <ServiceModal service={this.state.selectedService} show={this.state.showStationModal} onHide={this.handleModalClose} />
         }
+        <LoadingModal visible={this.state.showLoadingModal} />
         <Container>
           <Row>
             <Col md={{ span: 8, offset: 2 }}>
