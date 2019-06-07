@@ -8,8 +8,8 @@ const Header = () => {
       <Navbar.Toggle aria-controls='basic-navbar-nav' />
       <Navbar.Collapse id='basic-navbar-nav'>
         <Nav className='mr-auto'>
-          <Nav.Link href='https://github.com/AnalogueMachine'>GitHub</Nav.Link>
-          <Nav.Link href='http://twitter.com/AnalogueMachine'>Twitter</Nav.Link>
+          <Nav.Link href='https://github.com/GoodCoverage'>GitHub</Nav.Link>
+          <Nav.Link href='http://twitter.com/Good_Coverage'>Twitter</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>

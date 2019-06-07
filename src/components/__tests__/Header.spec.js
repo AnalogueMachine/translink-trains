@@ -105,12 +105,12 @@ describe('Header', () => {
         });
         
         it('should have a link to GitHub as the first link', () => {
-          expect(links[0].props.href).toBe("https://github.com/AnalogueMachine");
+          expect(links[0].props.href).toBe("https://github.com/GoodCoverage");
           expect(links[0].props.children).toBe('GitHub');
         });
 
         it('should have a link to Twitter as the second link', () => {
-          expect(links[1].props.href).toBe("http://twitter.com/AnalogueMachine");
+          expect(links[1].props.href).toBe("http://twitter.com/Good_Coverage");
           expect(links[1].props.children).toBe('Twitter');
         });
       });
