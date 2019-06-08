@@ -3,8 +3,8 @@ node_js:
   - "node"
 
 after_success:
-  - git config --global user.name "goodcoverage"
-  - git config --global user.email "goodcoverage@users.noreply.github.com"
+  - git config --global user.name "hundredpercentcoverage"
+  - git config --global user.email "hundredpercentcoverage@users.noreply.github.com"
   - git remote rm origin
-  - git remote add origin https://${GH_TOKEN}@github.com/GoodCoverage/translink-trains.git
+  - git remote add origin https://${GH_TOKEN}@github.com/HundredPercentCoverage/translink-trains.git
   - npm run deploy
