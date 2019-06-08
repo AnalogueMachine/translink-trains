@@ -105,7 +105,7 @@ describe('Header', () => {
         });
         
         it('should have a link to GitHub as the first link', () => {
-          expect(links[0].props.href).toBe("https://github.com/HundredPercecntCoverage");
+          expect(links[0].props.href).toBe("https://github.com/HundredPercentCoverage");
           expect(links[0].props.children).toBe('GitHub');
         });
 
