@@ -33,7 +33,7 @@ describe('Header', () => {
     });
 
     it('should have the appropriate text', () => {
-      expect(brandElement.props.children).toBe('Translink Train');
+      expect(brandElement.props.children).toBe('Translink Trains');
     });
 
     it('should contain a link to itself', () => {
