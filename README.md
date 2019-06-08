@@ -1,4 +1,4 @@
-# translink-trains [![Build Status](https://travis-ci.com/GoodCoverage/translink-trains.svg?branch=master)](https://travis-ci.com/GoodCoverage/translink-trains)
+# translink-trains [![Build Status](https://travis-ci.com/HundredPercentCoverage/translink-trains.svg?branch=master)](https://travis-ci.com/HundredPercentCoverage/translink-trains)
 
 This project was built with [Create React App](https://facebook.github.io/create-react-app/) and [React-Bootstrap](https://react-bootstrap.github.io/)
 
