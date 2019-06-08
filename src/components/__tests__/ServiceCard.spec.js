@@ -1,6 +1,6 @@
 import { shallow } from 'enzyme';
 import ServiceCard from '../ServiceCard';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import React from 'react';
 
 const mockService = {
@@ -43,11 +43,19 @@ const mockService = {
 
 const mockOnClick = jest.fn();
 
+const mockIndex = 0;
+
+const mockProps = {
+  service: mockService,
+  onClick: mockOnClick,
+  index: mockIndex
+}
+
 describe('ServiceCard', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<ServiceCard service={mockService} onClick={mockOnClick} />);
+    wrapper = shallow(<ServiceCard {...mockProps}/>);
   });
 
   it('should be a React-Bootstrap Card element', () => {
@@ -63,6 +71,11 @@ describe('ServiceCard', () => {
     expect(wrapper.props().style).toEqual(cardStyle);
   });
 
+  it('should call onclick when clicked', () => {
+    wrapper.simulate('click');
+    expect(mockOnClick).toBeCalledWith(mockIndex);
+  });
+
   describe('Card body', () => {
     let body;
 
@@ -74,78 +87,64 @@ describe('ServiceCard', () => {
       expect(body.type).toBe(Card.Body);
     });
 
-    it('should contain a Title element', () => {
-      expect(body.props.children[0].type).toBe(Card.Title);
-    });
-
-    it('should have the destination in the title', () => {
-      expect(body.props.children[0].props.children[0]).toEqual("Destination: ");
-      expect(body.props.children[0].props.children[1]).toEqual("Carrickfergus");
-    });
-
-    it('should contain a Body element', () => {
-      expect(body.props.children[1].type).toBe(Card.Text);
+    it('should contain a Text element', () => {
+      expect(body.props.children.type).toBe(Card.Text);
     });
 
     describe('Card text', () => {
       let cardText;
 
       beforeEach(() => {
-        cardText = body.props.children[1];
+        cardText = body.props.children;
       });
 
-      it('should contain the train origin', () => {
-        expect(cardText.props.children[0]).toBe('Origin: ');
-        expect(cardText.props.children[1]).toBe(mockService.Origin1.$.name);
+      it('should have some text styling', () => {
+        expect(cardText.props.style).toEqual({ fontSize: "large" });
       });
 
-      it('should contain the due time for the train', () => {
-        expect(cardText.props.children[3]).toBe('Due: ');
-        expect(cardText.props.children[4]).toBe(mockService.ArriveTime.$.time);
+      it('should contain a row with two cols', () => {
+        expect(cardText.props.children.type).toBe(Row);
+        expect(cardText.props.children.props.children[0].type).toBe(Col);
+        expect(cardText.props.children.props.children[2].type).toBe(Col);
       });
 
-      it('should contain the departure time for the train', () => {
-        expect(cardText.props.children[6]).toBe('Departing: ');
-        expect(cardText.props.children[7]).toBe(mockService.DepartTime.$.time);
+      it('should have a pipe between the two cols', () => {
+        expect(cardText.props.children.props.children[1].type).toBe('span');
+        expect(cardText.props.children.props.children[1].props.children).toBe('|');
       });
 
-      it('should contain the train status', () => {
-        expect(cardText.props.children[9]).toBe('Status: ');
-        expect(cardText.props.children[10]).toBe(mockService.ServiceStatus.$.Status);
+      describe('First col', () => {
+        let col;
+
+        beforeEach(() => {
+          col = cardText.props.children.props.children[0];
+        });
+
+        it('should have the correct size', () => {
+          expect(col.props.xs).toEqual(8);
+        });
+
+        it('should contain a span with the service destination', () => {
+          expect(col.props.children.type).toBe('span');
+          expect(col.props.children.props.children).toEqual("Carrickfergus");
+        });
       });
 
-      it('should contain the train delay time in minutes', () => {
-        expect(cardText.props.children[12]).toBe('Delay: ');
-        expect(cardText.props.children[13]).toBe(mockService.Delay.$.Minutes);
-        expect(cardText.props.children[14]).toBe(' minutes');
-      });
+      describe('Second col', () => {
+        let col;
 
-      it('should contain the train platform number', () => {
-        expect(cardText.props.children[16]).toBe('Platform: ');
-        expect(cardText.props.children[17]).toBe(mockService.Platform.$.Number);
-      });
-    });
+        beforeEach(() => {
+          col = cardText.props.children.props.children[2];
+        });
 
-    describe('Button', () => {
-      let button;
+        it('should have the correct style', () => {
+          expect(col.props.style).toEqual({ textAlign: "center" });
+        });
 
-      beforeEach(() => {
-        button = wrapper.find(Button);
-      });
-
-      it('should contain a button', () => {
-        expect(button.type()).toBe(Button);
-      });
-
-      it('should have the right text', () => {
-        expect(button.props().children).toBe('View Stops');
-      });
-
-      it('should have an onClick function passed from props', () => {
-        button.simulate('click');
-        
-        expect(button.props().onClick).toBe(mockOnClick);
-        expect(mockOnClick).toBeCalled();
+        it('should contain a span with the service arrive time', () => {
+          expect(col.props.children.type).toBe('span');
+          expect(col.props.children.props.children).toEqual("1100");
+        });
       });
     });
   });

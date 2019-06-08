@@ -51,8 +51,8 @@ class App extends Component {
     });
   }
 
-  viewStops(event) {
-    this.setState({ selectedService: this.state.stationInformation.StationBoard.Service[event.target.value] });
+  viewStops(stationIndex) {
+    this.setState({ selectedService: this.state.stationInformation.StationBoard.Service[stationIndex] });
     this.setState({ showStationModal: true });
   }
 
@@ -103,7 +103,7 @@ class App extends Component {
                 <Row>
                   <Col />
                   <Col className="text-center">
-                    <Button variant="primary" type="submit">
+                    <Button variant="outline-dark" type="submit">
                       Submit
                     </Button>
                   </Col>

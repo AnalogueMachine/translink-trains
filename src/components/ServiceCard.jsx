@@ -1,31 +1,24 @@
 import React from 'react';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 
 const ServiceCard = (props) => {
   return (
-    <Card style={{ margin: "10px 0 10px 0", boxShadow: "2px 4px 4px #888888"}}>
+    <Card style={{ margin: "10px 0 10px 0", boxShadow: "2px 4px 4px #888888"}} onClick={() => props.onClick(props.index)} value={props.index}>
       <Card.Body>
-        <Card.Title>
-          Destination: {props.service.Destination1.$.name}
-        </Card.Title>
-        <Card.Text>
-          Origin: {props.service.Origin1.$.name}
-          <br />
-          Due: {props.service.ArriveTime.$.time}
-          <br />
-          Departing: {props.service.DepartTime.$.time}
-          <br />
-          Status: {props.service.ServiceStatus.$.Status}
-          <br />
-          Delay: {props.service.Delay.$.Minutes} minutes
-          <br />
-          Platform: {props.service.Platform.$.Number}
-          <br />
+        <Card.Text style={{ fontSize: "large" }}>
+          <Row>
+            <Col xs={8}>
+              <span>{props.service.Destination1.$.name}</span>
+            </Col>
+            <span>|</span>
+            <Col style={{ textAlign: "center" }}>
+              <span>{props.service.ArriveTime.$.time}</span>
+            </Col>
+          </Row>
         </Card.Text>
-        <Button onClick={props.onClick} value={props.index}>View Stops</Button>
       </Card.Body>
     </Card>
-  )
+  );
 }
 
 export default ServiceCard;
