@@ -3,7 +3,7 @@ import ServiceCard from '../ServiceCard';
 import { Card, Row, Col } from 'react-bootstrap';
 import React from 'react';
 
-const mockService = {
+const mockServiceDelayed = {
   Destination1: {
     $: {
       name: "Carrickfergus"
@@ -21,12 +21,17 @@ const mockService = {
   },
   DepartTime: {
     $: {
-      time: "1105"
+      time: "1100"
     }
   },
   ServiceStatus: {
     $: {
       Status: "Delayed"
+    }
+  },
+  ExpectedDepartTime: {
+    $: {
+      Time: "1105"
     }
   },
   Delay: {
@@ -41,12 +46,40 @@ const mockService = {
   }
 };
 
+const mockServiceOnTime = {
+  Destination1: {
+    $: {
+      name: "Carrickfergus"
+    }
+  },
+  Origin1: {
+    $: {
+      name: "Belfast Central"
+    }
+  },
+  ArriveTime: {
+    $: {
+      time: "1100"
+    }
+  },
+  DepartTime: {
+    $: {
+      time: "1100"
+    }
+  },
+  ServiceStatus: {
+    $: {
+      Status: "On time"
+    }
+  }
+};
+
 const mockOnClick = jest.fn();
 
 const mockIndex = 0;
 
-const mockProps = {
-  service: mockService,
+const defaultMockProps = {
+  service: mockServiceDelayed,
   onClick: mockOnClick,
   index: mockIndex
 }
@@ -55,7 +88,7 @@ describe('ServiceCard', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallow(<ServiceCard {...mockProps}/>);
+    wrapper = shallow(<ServiceCard {...defaultMockProps} />);
   });
 
   it('should be a React-Bootstrap Card element', () => {
@@ -73,7 +106,7 @@ describe('ServiceCard', () => {
 
   it('should call onClick when clicked, sending the selected service', () => {
     wrapper.simulate('click');
-    expect(mockOnClick).toBeCalledWith(mockService);
+    expect(mockOnClick).toBeCalledWith(mockServiceDelayed);
   });
 
   describe('Card body', () => {
@@ -102,15 +135,16 @@ describe('ServiceCard', () => {
         expect(cardText.props.style).toEqual({ fontSize: "large" });
       });
 
-      it('should contain a row with two cols', () => {
+      it('should contain a row with three cols', () => {
         expect(cardText.props.children.type).toBe(Row);
         expect(cardText.props.children.props.children[0].type).toBe(Col);
-        expect(cardText.props.children.props.children[2].type).toBe(Col);
+        expect(cardText.props.children.props.children[1].type).toBe(Col);
+        expect(cardText.props.children.props.children[3].type).toBe(Col);
       });
 
-      it('should have a pipe between the two cols', () => {
-        expect(cardText.props.children.props.children[1].type).toBe('span');
-        expect(cardText.props.children.props.children[1].props.children).toBe('|');
+      it('should have a pipe between the last two cols', () => {
+        expect(cardText.props.children.props.children[2].type).toBe('span');
+        expect(cardText.props.children.props.children[2].props.children).toBe('|');
       });
 
       describe('First col', () => {
@@ -134,16 +168,39 @@ describe('ServiceCard', () => {
         let col;
 
         beforeEach(() => {
-          col = cardText.props.children.props.children[2];
+          col = cardText.props.children.props.children[1];
+        });
+
+        it('should contain a span with the service status', () => {
+          expect(col.props.children.type).toBe('span');
+          expect(col.props.children.props.children).toEqual("Delayed");
+        });
+      });
+
+      describe('Third col', () => {
+        let col;
+
+        beforeEach(() => {
+          col = cardText.props.children.props.children[3];
         });
 
         it('should have the correct style', () => {
           expect(col.props.style).toEqual({ textAlign: "center" });
         });
 
-        it('should contain a span with the service departure time', () => {
+        it('should contain a span', () => {
           expect(col.props.children.type).toBe('span');
+        });
+
+        it('should display the correct departure time in red if the train is delayed', () => {
           expect(col.props.children.props.children).toEqual("1105");
+          expect(col.props.children.props.style).toEqual({ color: "red" });
+        });
+
+        it('should display the correct departure time if the train is not delayed', () => {
+          wrapper.setProps({ service: mockServiceOnTime });
+          col = wrapper.props().children.props.children.props.children.props.children[3];
+          expect(col.props.children.props.children).toEqual("1100");
         });
       });
     });
