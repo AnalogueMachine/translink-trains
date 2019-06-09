@@ -31,7 +31,7 @@ const mockServiceDelayed = {
   },
   ExpectedDepartTime: {
     $: {
-      Time: "1105"
+      time: "1105"
     }
   },
   Delay: {

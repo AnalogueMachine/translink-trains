@@ -16,7 +16,7 @@ const ServiceCard = (props) => {
             <span>|</span>
             <Col style={{ textAlign: "center" }}>
               {(props.service.ServiceStatus.$.Status === "Delayed") ?
-                <span style={{ color: "red" }}>{props.service.ExpectedDepartTime.$.Time}</span>
+                <span style={{ color: "red" }}>{props.service.ExpectedDepartTime.$.time}</span>
               :
                 <span>{props.service.DepartTime.$.time}</span>
               }
