@@ -54,8 +54,8 @@ describe('Loading modal', () => {
         expect(spinner.props.animation).toBe('border');
       });
 
-      it('should be the primary variant', () => {
-        expect(spinner.props.variant).toBe('primary');
+      it('should be the dark variant', () => {
+        expect(spinner.props.variant).toBe('dark');
       });
     });
 

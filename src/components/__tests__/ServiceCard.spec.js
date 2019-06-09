@@ -21,7 +21,7 @@ const mockService = {
   },
   DepartTime: {
     $: {
-      time: "1100"
+      time: "1105"
     }
   },
   ServiceStatus: {
@@ -71,9 +71,9 @@ describe('ServiceCard', () => {
     expect(wrapper.props().style).toEqual(cardStyle);
   });
 
-  it('should call onclick when clicked', () => {
+  it('should call onClick when clicked, sending the selected service', () => {
     wrapper.simulate('click');
-    expect(mockOnClick).toBeCalledWith(mockIndex);
+    expect(mockOnClick).toBeCalledWith(mockService);
   });
 
   describe('Card body', () => {
@@ -141,9 +141,9 @@ describe('ServiceCard', () => {
           expect(col.props.style).toEqual({ textAlign: "center" });
         });
 
-        it('should contain a span with the service arrive time', () => {
+        it('should contain a span with the service departure time', () => {
           expect(col.props.children.type).toBe('span');
-          expect(col.props.children.props.children).toEqual("1100");
+          expect(col.props.children.props.children).toEqual("1105");
         });
       });
     });

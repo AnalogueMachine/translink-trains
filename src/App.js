@@ -51,8 +51,8 @@ class App extends Component {
     });
   }
 
-  viewStops(stationIndex) {
-    this.setState({ selectedService: this.state.stationInformation.StationBoard.Service[stationIndex] });
+  viewStops(selectedService) {
+    this.setState({ selectedService: selectedService });
     this.setState({ showStationModal: true });
   }
 
@@ -65,11 +65,15 @@ class App extends Component {
     let serviceElements;
 
     if (services) {
-      serviceElements = services.map((service, index) => {
-        return (
-          <ServiceCard key={index} service={service} onClick={this.viewStops} index={index} />
-        );
-      });
+      if(services.length) {
+        serviceElements = services.map((service, index) => {
+          return (
+            <ServiceCard key={index} service={service} onClick={this.viewStops} index={index} />
+          );
+        });
+      } else {
+        serviceElements = <ServiceCard index={0} service={services} onClick={this.viewStops} />
+      }      
     } else {
       serviceElements = <p className="noTrains">No trains due here for at least 90min.</p>
     }
