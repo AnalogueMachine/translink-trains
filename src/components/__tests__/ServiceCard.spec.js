@@ -132,20 +132,16 @@ describe('ServiceCard', () => {
       });
 
       it('should have some text styling', () => {
-        expect(cardText.props.style).toEqual({ fontSize: "large" });
+        expect(cardText.props.style).toEqual({ fontSize: "small" });
       });
 
       it('should contain a row with three cols', () => {
         expect(cardText.props.children.type).toBe(Row);
         expect(cardText.props.children.props.children[0].type).toBe(Col);
         expect(cardText.props.children.props.children[1].type).toBe(Col);
-        expect(cardText.props.children.props.children[3].type).toBe(Col);
+        expect(cardText.props.children.props.children[2].type).toBe(Col);
       });
 
-      it('should have a pipe between the last two cols', () => {
-        expect(cardText.props.children.props.children[2].type).toBe('span');
-        expect(cardText.props.children.props.children[2].props.children).toBe('|');
-      });
 
       describe('First col', () => {
         let col;
@@ -155,7 +151,7 @@ describe('ServiceCard', () => {
         });
 
         it('should have the correct size', () => {
-          expect(col.props.xs).toEqual(8);
+          expect(col.props.xs).toEqual(6);
         });
 
         it('should contain a span with the service destination', () => {
@@ -171,6 +167,10 @@ describe('ServiceCard', () => {
           col = cardText.props.children.props.children[1];
         });
 
+        it('should have the correct size', () => {
+          expect(col.props.xs).toEqual(3);
+        });
+
         it('should contain a span with the service status', () => {
           expect(col.props.children.type).toBe('span');
           expect(col.props.children.props.children).toEqual("Delayed");
@@ -181,7 +181,11 @@ describe('ServiceCard', () => {
         let col;
 
         beforeEach(() => {
-          col = cardText.props.children.props.children[3];
+          col = cardText.props.children.props.children[2];
+        });
+
+        it('should have the correct size', () => {
+          expect(col.props.xs).toEqual(3);
         });
 
         it('should have the correct style', () => {
@@ -199,7 +203,7 @@ describe('ServiceCard', () => {
 
         it('should display the correct departure time if the train is not delayed', () => {
           wrapper.setProps({ service: mockServiceOnTime });
-          col = wrapper.props().children.props.children.props.children.props.children[3];
+          col = wrapper.props().children.props.children.props.children.props.children[2];
           expect(col.props.children.props.children).toEqual("1100");
         });
       });

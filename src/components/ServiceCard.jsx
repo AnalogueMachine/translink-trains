@@ -5,16 +5,15 @@ const ServiceCard = (props) => {
   return (
     <Card style={{ margin: "10px 0 10px 0", boxShadow: "2px 4px 4px #888888"}} onClick={() => props.onClick(props.service)} value={props.index}>
       <Card.Body>
-        <Card.Text style={{ fontSize: "large" }}>
+        <Card.Text style={{ fontSize: "small" }}>
           <Row>
-            <Col xs={8}>
+            <Col xs={6}>
               <span>{props.service.Destination1.$.name}</span>
             </Col>
-            <Col>
+            <Col xs={3}>
               <span>{props.service.ServiceStatus.$.Status}</span>
             </Col>
-            <span>|</span>
-            <Col style={{ textAlign: "center" }}>
+            <Col xs={3} style={{ textAlign: "center" }}>
               {(props.service.ServiceStatus.$.Status === "Delayed") ?
                 <span style={{ color: "red" }}>{props.service.ExpectedDepartTime.$.time}</span>
               :
