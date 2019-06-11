@@ -1,0 +1,9 @@
+.servicecard {
+  margin: 10px 0 10px 0;
+  box-shadow: 2px 4px 4px #888888;
+}
+
+.servicecard:active {
+  background-color: black;
+  color: white;
+}
