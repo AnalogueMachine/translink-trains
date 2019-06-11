@@ -95,18 +95,13 @@ describe('ServiceCard', () => {
     expect(wrapper.type()).toBe(Card);
   });
 
-  it('should have appropriate styling', () => {
-    const cardStyle = {
-      margin: '10px 0 10px 0',
-      boxShadow: '2px 4px 4px #888888'
-    };
-
-    expect(wrapper.props().style).toEqual(cardStyle);
-  });
-
   it('should call onClick when clicked, sending the selected service', () => {
     wrapper.simulate('click');
     expect(mockOnClick).toBeCalledWith(mockServiceDelayed);
+  });
+
+  it('should have the right css classes', () => {
+    expect(wrapper.props().className).toBe('servicecard');
   });
 
   describe('Card body', () => {

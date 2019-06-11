@@ -3,7 +3,7 @@ import { Card, Row, Col } from 'react-bootstrap';
 
 const ServiceCard = (props) => {
   return (
-    <Card style={{ margin: "10px 0 10px 0", boxShadow: "2px 4px 4px #888888"}} onClick={() => props.onClick(props.service)} value={props.index}>
+    <Card className="servicecard" onClick={() => props.onClick(props.service)} value={props.index}>
       <Card.Body>
         <Card.Text style={{ fontSize: "small" }}>
           <Row>
