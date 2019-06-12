@@ -5,7 +5,7 @@ const ServiceCard = (props) => {
   return (
     <Card className="servicecard" onClick={() => props.onClick(props.service)} value={props.index}>
       <Card.Body>
-        <Card.Text style={{ fontSize: "small" }}>
+        <Card.Text>
           <Row>
             <Col xs={6}>
               <span>{props.service.Destination1.$.name}</span>

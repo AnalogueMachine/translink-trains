@@ -126,10 +126,6 @@ describe('ServiceCard', () => {
         cardText = body.props.children;
       });
 
-      it('should have some text styling', () => {
-        expect(cardText.props.style).toEqual({ fontSize: "small" });
-      });
-
       it('should contain a row with three cols', () => {
         expect(cardText.props.children.type).toBe(Row);
         expect(cardText.props.children.props.children[0].type).toBe(Col);
