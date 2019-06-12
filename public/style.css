@@ -11,6 +11,6 @@
 
 @media all and (min-width: 768px) {
   .servicecard {
-    font-size: large;
+    font-size: medium;
   }
 }
