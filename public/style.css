@@ -1,9 +1,16 @@
 .servicecard {
   margin: 10px 0 10px 0;
   box-shadow: 2px 4px 4px #888888;
+  font-size: small;
 }
 
 .servicecard:active {
   background-color: black;
   color: white;
+}
+
+@media all and (min-width: 768px) {
+  .servicecard {
+    font-size: large;
+  }
 }
