@@ -9,6 +9,11 @@
   color: white;
 }
 
+.noTrains {
+  text-align: center;
+  margin: 10px 0 10px 0;
+}
+
 @media all and (min-width: 768px) {
   .servicecard {
     font-size: medium;
