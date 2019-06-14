@@ -5,9 +5,9 @@ const LoadingModal = (props) => {
   return (
     <Modal show={props.visible} centered>
       <Modal.Body>
-        <p style={{ textAlign: "center" }}>
+        <div style={{ textAlign: "center" }}>
           <Spinner animation="border" variant="dark"></Spinner>
-        </p>
+        </div>
         <p style={{ textAlign: "center" }}>
           Loading
         </p>

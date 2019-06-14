@@ -35,7 +35,7 @@ describe('Loading modal', () => {
     });
 
     it('should contain a paragraph element for the spinner', () => {
-      expect(body.props.children[0].type).toBe('p');
+      expect(body.props.children[0].type).toBe('div');
       expect(body.props.children[0].props.style).toEqual({ textAlign: "center" });
     });
 
