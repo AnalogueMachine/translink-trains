@@ -26,7 +26,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    let stations = await getStations(); // Try this with GH Pages
+    let stations = await getStations();
     stations = await stations.map((station, index) => {
       return (
         <option key={index} value={station.code}>
@@ -90,9 +90,6 @@ class App extends Component {
     return (
       <div>
         <Header />
-        {this.state.selectedService &&
-          <ServiceModal service={this.state.selectedService} show={this.state.showStationModal} onHide={this.handleModalClose} />
-        }
         <LoadingModal visible={this.state.showLoadingModal} />
         <Container>
           <Row>
@@ -108,6 +105,9 @@ class App extends Component {
             </Col>
           </Row>
         </Container>
+        {this.state.selectedService &&
+          <ServiceModal service={this.state.selectedService} show={this.state.showStationModal} onHide={this.handleModalClose} />
+        }
       </div>
     );
   }
