@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/translink-trains/precache-manifest.3c4ebdd5cd8c80aa2caba592c86caae8.js"
+  "/translink-trains/precache-manifest.f8fba7dba991177b7d8538b63c543baa.js"
 );
 
 self.addEventListener('message', (event) => {
