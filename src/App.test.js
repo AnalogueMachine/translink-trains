@@ -21,15 +21,6 @@ const mockGetStationsReturn = [
   }
 ];
 
-const mockMappedStations = [
-  <option key="0" value="3042A0">
-    Adelaide
-  </option>,
-  <option key="1" value="3042A1">
-    Antrim
-  </option>
-];
-
 describe("Main app", () => {
   let wrapper;
 
