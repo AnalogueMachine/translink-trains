@@ -56,10 +56,12 @@ class App extends Component {
   }
 
   renderServices() {
-    const services = this.state.stationInformation.StationBoard.Service;
     let serviceElements;
 
-    if (services) {
+    if (this.state.stationInformation && this.state.stationInformation.StationBoard.Service) {
+      
+      const services = this.state.stationInformation.StationBoard.Service;
+
       if(services.length) {
         serviceElements = services.map((service, index) => {
           return (
