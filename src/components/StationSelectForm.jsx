@@ -5,7 +5,7 @@ const StationSelectForm = (props) => {
   return (
     <Form onSubmit={props.onSubmit}>
       <Form.Group style={{ textAlign: "center" }}>
-        <Form.Label>Get me upcoming departures for...</Form.Label>
+        <Form.Label className="noTrains">Get upcoming departures for...</Form.Label>
         <Form.Control as="select" onChange={props.onChange} required>
           <option value="">Please select...</option>
           {props.stations.map((station, index) => {

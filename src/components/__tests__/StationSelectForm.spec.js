@@ -70,7 +70,8 @@ describe('Station select form', () => {
 
     it('should have a label with the appropriate text', () => {
       expect(formGroup.props.children[0].type).toBe(Form.Label);
-      expect(formGroup.props.children[0].props.children).toBe('Get me upcoming departures for...');
+      expect(formGroup.props.children[0].props.children).toBe('Get upcoming departures for...');
+      expect(formGroup.props.children[0].props.className).toEqual('noTrains');
     });
 
     it('should have a Form Control element', () => {
