@@ -12,6 +12,7 @@ class App extends Component {
     super(props);
 
     this.state = {
+      stations: [],
       selectedStation: "None selected",
       stationInformation: "",
       selectedService: null,
@@ -27,13 +28,6 @@ class App extends Component {
 
   async componentDidMount() {
     let stations = await getStations();
-    stations = await stations.map((station, index) => {
-      return (
-        <option key={index} value={station.code}>
-          {station.name}
-        </option>
-      );
-    });
 
     this.setState({
       stations: stations,

@@ -8,7 +8,11 @@ const StationSelectForm = (props) => {
         <Form.Label>Get me upcoming departures for...</Form.Label>
         <Form.Control as="select" onChange={props.onChange} required>
           <option value="">Please select...</option>
-          {props.stations}
+          {props.stations.map((station, index) => {
+            return (
+              <option key={index} value={station.code}>{station.name}</option>
+            )
+          })}
         </Form.Control>
       </Form.Group>
       <Row>

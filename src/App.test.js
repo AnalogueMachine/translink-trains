@@ -47,7 +47,7 @@ describe("Main app", () => {
       wrapper.instance().componentDidMount();
       expect(services.getStations).toBeCalled();
       expect(wrapper.state("showLoadingModal")).toEqual(false);
-      expect(wrapper.state("stations")).toEqual(mockMappedStations);
+      expect(wrapper.state("stations")).toEqual(mockGetStationsReturn);
     });
   });
 
@@ -131,7 +131,7 @@ describe("Main app", () => {
         it("should have the right stations in the form", () => {
           const form = row.props.children.props.children;
 
-          expect(form.props.stations).toEqual(mockMappedStations);
+          expect(form.props.stations).toEqual(wrapper.state('stations'));
         });
 
         it("should have the correct onChange and onSubmit props", () => {

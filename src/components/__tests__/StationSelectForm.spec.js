@@ -23,7 +23,7 @@ const mockStations = [
     }
 ];
 
-const mockStationElements = mockStations.map((station, index) => {
+const mockStationsAsElements = mockStations.map((station, index) => {
   return (
     <option key={index} value={station.code}>{station.name}</option>
   );
@@ -33,7 +33,7 @@ const mockOnSubmit = jest.fn();
 const mockOnChange = jest.fn();
 
 const mockProps = {
-  stations: mockStationElements,
+  stations: mockStations,
   onSubmit: mockOnSubmit,
   onChange: mockOnChange
 }
@@ -101,10 +101,10 @@ describe('Station select form', () => {
         expect(dropDown.props.children[0].props.value).toEqual("");
         
         expect(dropDown.props.children[1].length).toEqual(4);
-        expect(dropDown.props.children[1][0]).toEqual(mockStationElements[0]);
-        expect(dropDown.props.children[1][1]).toEqual(mockStationElements[1]);
-        expect(dropDown.props.children[1][2]).toEqual(mockStationElements[2]);
-        expect(dropDown.props.children[1][3]).toEqual(mockStationElements[3]);
+        expect(dropDown.props.children[1][0]).toEqual(mockStationsAsElements[0]);
+        expect(dropDown.props.children[1][1]).toEqual(mockStationsAsElements[1]);
+        expect(dropDown.props.children[1][2]).toEqual(mockStationsAsElements[2]);
+        expect(dropDown.props.children[1][3]).toEqual(mockStationsAsElements[3]);
       });
 
     });
