@@ -7,8 +7,7 @@ import LoadingModal from "./components/LoadingModal";
 import { Container, Row, Col } from "react-bootstrap";
 import StationSelectForm from "./components/StationSelectForm";
 import ServiceModal from "./components/ServiceModal";
-
-services.getStations = jest.fn();
+import ServiceCard from "./components/ServiceCard";
 
 const mockGetStationsReturn = [
   {
@@ -20,6 +19,9 @@ const mockGetStationsReturn = [
     name: "Antrim"
   }
 ];
+
+services.getStations = jest.fn();
+services.getStationInformation = jest.fn();
 
 describe("Main app", () => {
   let wrapper;
@@ -34,8 +36,11 @@ describe("Main app", () => {
   });
 
   describe("componentDidMount", () => {
-    it("Should retrieve the station list and populate state", () => {
-      wrapper.instance().componentDidMount();
+    it("Should retrieve the station list and populate state", async () => {
+      services.getStations.mockImplementationOnce(() => Promise.resolve(mockGetStationsReturn));
+      
+      await wrapper.instance().componentDidMount();
+
       expect(services.getStations).toBeCalled();
       expect(wrapper.state("showLoadingModal")).toEqual(false);
       expect(wrapper.state("stations")).toEqual(mockGetStationsReturn);
@@ -44,6 +49,21 @@ describe("Main app", () => {
 
   describe('handleSubmit', () => {
     // How do we test that setState is called with one thing first and a second time with another?
+    it('should retrieve station information for the chosen station and update state', async () => {
+      const mockGetStationInformationReturn = { StationBoard: "Test Station Board" };
+      services.getStationInformation.mockImplementationOnce(() => Promise.resolve(mockGetStationInformationReturn));
+      const mockSelectedStation = 'A01234';
+      const mockEvent = {preventDefault: jest.fn(), target: { value: mockSelectedStation }};
+      
+
+      wrapper.instance().handleChange(mockEvent); // Simulates station selection
+      await wrapper.instance().handleSubmit(mockEvent); // Simulates form submission
+    
+      expect(mockEvent.preventDefault).toBeCalled();
+      expect(services.getStationInformation).toBeCalledWith(mockSelectedStation);
+      expect(wrapper.state('stationInformation')).toEqual(mockGetStationInformationReturn);
+      expect(wrapper.state('showLoadingModal')).toEqual(false);
+    });
   });
 
   describe('viewStops', () => {
@@ -69,6 +89,47 @@ describe("Main app", () => {
 
   describe('renderServices', () => {
     // Not sure where to begin here
+    it('should return no trains if there are no services in state (null)', () => {
+      const result = wrapper.instance().renderServices();
+
+      expect(result).toEqual(<p className="noTrains">No trains due here for at least 90min.</p>);
+    });
+
+    it('should return no trains if there are no services in state (empty)', () => {
+      wrapper.setState({ stationInformation: { StationBoard: { Service: null }}});
+      const result = wrapper.instance().renderServices();
+
+      expect(result).toEqual(<p className="noTrains">No trains due here for at least 90min.</p>);
+    });
+
+    it('should return one ServiceCard if there is only one service', () => {
+      wrapper.setState({ stationInformation: { StationBoard: { Service: { name: "Single Service" } }}});
+
+      const result = wrapper.instance().renderServices();
+      
+      expect(result.type).toBe(ServiceCard);
+      expect(result.props.index).toEqual(0);
+      expect(result.props.service).toEqual({name: "Single Service"});
+      expect(result.props.onClick).toBe(wrapper.instance().viewStops);
+    });
+
+    it('should return multiple service cards if there is more than one service', () => {
+      wrapper.setState({ stationInformation: { StationBoard: { Service: [
+        { name: "Service One" },
+        { name: "Service Two" }
+      ]}}});
+
+      const result = wrapper.instance().renderServices();
+
+      expect(result.length).toEqual(2);
+      expect(result[0].props.index).toEqual(0);
+      expect(result[0].props.service).toEqual({name: "Service One"});
+      expect(result[0].props.onClick).toBe(wrapper.instance().viewStops);
+
+      expect(result[1].props.index).toEqual(1);
+      expect(result[1].props.service).toEqual({name: "Service Two"});
+      expect(result[1].props.onClick).toBe(wrapper.instance().viewStops);
+    });
   });
 
   describe('handleChange', () => {
@@ -139,6 +200,10 @@ describe("Main app", () => {
           row = container.props.children[1];
         });
 
+        it("should contain a Col with correct size", () => {
+          expect(row.props.children.type).toBe(Col);
+          expect(row.props.children.props.md).toEqual({ span: 8, offset: 2 });
+        });
         // More to do here
       });
     });
