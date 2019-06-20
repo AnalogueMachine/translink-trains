@@ -162,6 +162,10 @@ describe('ServiceCard', () => {
           expect(col.props.xs).toEqual(3);
         });
 
+        it('should have the correct style prop', () => {
+          expect(col.props.style).toEqual({ paddingLeft: 'inherit' });
+        })
+
         it('should contain a span with the service status', () => {
           expect(col.props.children.type).toBe('span');
           expect(col.props.children.props.children).toEqual("Delayed");

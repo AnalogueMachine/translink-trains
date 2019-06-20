@@ -20,8 +20,14 @@
   }
 }
 
-@media all and (max-width: 390px) {
+@media all and (max-width: 390px) and (min-width: 375px) {
   .servicecard {
-    font-size: 11px;
+    font-size: 16px;
+  }
+}
+
+@media all and (max-width: 375px) {
+  .servicecard {
+    font-size: 14px;
   }
 }

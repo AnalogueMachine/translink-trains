@@ -10,7 +10,7 @@ const ServiceCard = (props) => {
             <Col xs={6}>
               <span>{props.service.Destination1.$.name}</span>
             </Col>
-            <Col xs={3}>
+            <Col xs={3} style={{ paddingLeft: 'inherit' }}>
               <span>{props.service.ServiceStatus.$.Status}</span>
             </Col>
             <Col xs={3} style={{ textAlign: "center" }}>
