@@ -14,13 +14,7 @@
   margin: 10px 0 10px 0;
 }
 
-@media all and (min-width: 768px) {
-  .servicecard {
-    font-size: medium;
-  }
-}
-
-@media all and (max-width: 390px) and (min-width: 375px) {
+@media all and (min-width: 375px) {
   .servicecard {
     font-size: 16px;
   }
