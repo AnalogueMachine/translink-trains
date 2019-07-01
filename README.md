@@ -9,6 +9,8 @@ See the app in action here: [https://hundredpercentcoverage.github.io/translink-
 ### Proxying
 There is an issue with this app whereby accessing the information from the Translink APIs directly results in a CORS error. To get around this, a proxy needs to be used. The app can either use the [cors.io](http://cors.io/) proxy, which is useful for running the app on GitHub pages (but unreliable if the proxy goes down), a custom quick-and-dirty proxy I have hosted on Heroku, or via a [local proxy](https://github.com/HundredPercentCoverage/translink-proxy) which of course only works if running the app locally.
 
+The Heroku proxy keeps itself alive for as long as possible, but currently runs only on the free tier offered be Heroku and thus will go to sleep towards the end of the month (550 hours).
+
 ## To run locally:
 Step 1:
 - Clone this repo
