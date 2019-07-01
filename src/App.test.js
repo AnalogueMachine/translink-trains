@@ -28,7 +28,6 @@ describe("Main app", () => {
   let wrapper;
 
   beforeEach(() => {
-    //services.getStations.mockReturnValue(mockGetStationsReturn);
     services.getStations.mockImplementationOnce(() => Promise.resolve(mockGetStationsReturn));
     wrapper = shallow(<App />);
   });
@@ -39,10 +38,6 @@ describe("Main app", () => {
 
   describe("componentDidMount", () => {
     it("Should retrieve the station list and populate state", async () => {
-      services.getStations.mockImplementationOnce(() => Promise.resolve(mockGetStationsReturn));
-      
-      await wrapper.instance().componentDidMount();
-
       expect(services.getStations).toBeCalled();
       expect(wrapper.state("showLoadingModal")).toEqual(false);
       expect(wrapper.state("stations")).toEqual(mockGetStationsReturn);
