@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Header from './components/Header';
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import ServiceCard from "./components/ServiceCard";
 import ServiceModal from "./components/ServiceModal";
 import { getStations, getStationInformation } from "./services/stationServices";
@@ -17,7 +17,8 @@ class App extends Component {
       stationInformation: "",
       selectedService: null,
       showStationModal: false,
-      showLoadingModal: true
+      showLoadingModal: true,
+      proxyDown: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -29,10 +30,17 @@ class App extends Component {
   async componentDidMount() {
     let stations = await getStations();
 
-    this.setState({
-      stations: stations,
-      showLoadingModal: false
-    });
+    if(!stations.length) {
+      this.setState({
+        showLoadingModal: false,
+        proxyDown: true
+      });
+    } else {
+      this.setState({
+        stations: stations,
+        showLoadingModal: false
+      });
+    }
   }
 
   async handleSubmit(event) {
@@ -87,6 +95,23 @@ class App extends Component {
       <div>
         <Header />
         <LoadingModal visible={this.state.showLoadingModal} />
+        <Modal show={this.state.proxyDown} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Error</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>
+              This app uses a proxy hosted on a free Heroku service, which has a limit on how long it can run per month.
+            </p>
+            <p>
+              As this is just a side project for me and I'm a bit skint, I only use the free service, so it is likely that 
+              the app will go down towards the end of the month.
+            </p>
+            <p>
+              You're seeing this error message because, in all likelihood, the proxy has reached the limit for the free tier and isn't running, so the app won't work.
+            </p>
+          </Modal.Body>
+        </Modal>
         <Container>
           <Row>
             <Col md={{ span: 8, offset: 2 }}>

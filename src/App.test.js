@@ -4,10 +4,11 @@ import { shallow } from "enzyme";
 import * as services from "./services/stationServices";
 import Header from "./components/Header";
 import LoadingModal from "./components/LoadingModal";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Modal } from "react-bootstrap";
 import StationSelectForm from "./components/StationSelectForm";
 import ServiceModal from "./components/ServiceModal";
 import ServiceCard from "./components/ServiceCard";
+import { wrap } from "module";
 
 const mockGetStationsReturn = [
   {
@@ -27,7 +28,8 @@ describe("Main app", () => {
   let wrapper;
 
   beforeEach(() => {
-    services.getStations.mockReturnValue(mockGetStationsReturn);
+    //services.getStations.mockReturnValue(mockGetStationsReturn);
+    services.getStations.mockImplementationOnce(() => Promise.resolve(mockGetStationsReturn));
     wrapper = shallow(<App />);
   });
 
@@ -44,6 +46,19 @@ describe("Main app", () => {
       expect(services.getStations).toBeCalled();
       expect(wrapper.state("showLoadingModal")).toEqual(false);
       expect(wrapper.state("stations")).toEqual(mockGetStationsReturn);
+    });
+
+    it('should set the proxyDown state to true if the station list response is empty', async () => {
+      services.getStations.mockImplementationOnce(() => Promise.resolve([]));
+      services.getStations.mockReturnValueOnce([]);
+
+      wrapper = shallow(<App />);
+
+      await wrapper.instance().componentDidMount();
+
+      expect(wrapper.state("showLoadingModal")).toEqual(false);
+      expect(wrapper.state("proxyDown")).toEqual(true);
+      expect(wrapper.state("stations")).toEqual([]);
     });
   });
 
@@ -148,15 +163,19 @@ describe("Main app", () => {
       expect(wrapper.props().children[1].type).toBe(LoadingModal);
     });
 
+    it("should contain an error modal", () => {
+      expect(wrapper.props().children[2].type).toBe(Modal);
+    });
+
     it("should have a react-bootstrap container", () => {
-      expect(wrapper.props().children[2].type).toBe(Container);
+      expect(wrapper.props().children[3].type).toBe(Container);
     });
 
     describe("Container", () => {
       let container;
 
       beforeEach(() => {
-        container = wrapper.props().children[2];
+        container = wrapper.props().children[3];
       });
 
       it("should contain two rows", () => {
