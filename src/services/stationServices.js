@@ -11,15 +11,22 @@ export const getStations = async () => {
     //     stationsArray = data.stations;
     //   });
 
-    // Lroxy version - proxy must be running
+    // Local proxy version - proxy must be running
     // await fetch("/stations")
     //   .then(results => { return results.json(); })
     //   .then(data => { stationsArray = data; });
 
     // Heroku proxy version
     await fetch("https://translink-proxy.herokuapp.com/stations")
-      .then(results => { return results.json(); })
-      .then(data => { stationsArray = data; });
+      .then(results => { 
+        if(results.ok) {
+          return results.json();
+        } else {
+          throw new Error('Some error');
+        } 
+      })
+      .then(data => { stationsArray = data; })
+      .catch(error => stationsArray = []);
 
     return stationsArray;
 }

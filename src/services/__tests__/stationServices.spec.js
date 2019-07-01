@@ -8,8 +8,8 @@ describe("Service calls", () => {
   });
 
   describe("getStations", () => {
-    it("should fetch the correct URL and return the data", async () => {
-      fetch.mockResponseOnce(JSON.stringify(mockFetchReturnData));
+    it("should fetch the correct URL and return the data if the response is 200", async () => {
+      fetch.mockResponseOnce(JSON.stringify(mockFetchReturnData), {status: 200});
 
       const result = await getStations();
 
@@ -18,6 +18,14 @@ describe("Service calls", () => {
         "https://translink-proxy.herokuapp.com/stations"
       );
       expect(result).toEqual(mockFetchReturnData);
+    });
+
+    it('should return an empty array if the fetch response is 503', async () => {
+      fetch.mockResponseOnce(null, {status: 503});
+
+      const result = await getStations();
+
+      expect(result).toEqual([]);
     });
   });
 
