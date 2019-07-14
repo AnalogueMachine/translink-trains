@@ -96,20 +96,19 @@ class App extends Component {
         <Header />
         <LoadingModal visible={this.state.showLoadingModal} />
         <Modal show={this.state.proxyDown} centered>
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>Error</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <p>
-              This app uses a proxy hosted on a free Heroku service, which has a limit on how long it can run per month.
+              This app uses a proxy hosted on a free Heroku service, which has a limit on how long it can run per month. It also depends on an API provided by Open Data NI.
             </p>
             <p>
-              As this is just a side project for me and I'm a bit skint, I only use the free service, so it is likely that 
-              the app will go down towards the end of the month.
+              You're seeing this error message because either the proxy has reached the limit for 
+              the free tier and isn't running, or the <a href="https://www.opendatani.gov.uk/dataset/real-time-rail-stations-arrivals-and-departures">
+              Open Data API</a> is down.
             </p>
-            <p>
-              You're seeing this error message because, in all likelihood, the proxy has reached the limit for the free tier and isn't running, so the app won't work.
-            </p>
+            <p>The code for this app is available <a href="https://github.com/HundredPercentCoverage/translink-trains">here</a>.</p>
           </Modal.Body>
         </Modal>
         <Container>
